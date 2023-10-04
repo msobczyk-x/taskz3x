@@ -1,0 +1,18 @@
+<svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+<circle cx="40" cy="40" r="40" fill="#1A1A1A"/>
+<path d="M40.2774 20L40.0093 20.9115V47.3605L40.2774 47.6282L52.5548 40.3711L40.2774 20Z" fill="#343434"/>
+<path d="M40.2773 20L28 40.3711L40.2773 47.6283V34.7907V20Z" fill="#8C8C8C"/>
+<path d="M40.2773 49.9527L40.1262 50.1369V59.5586L40.2773 60.0001L52.562 42.6992L40.2773 49.9527Z" fill="#3C3C3B"/>
+<path d="M40.2773 59.9996V49.9522L28 42.6987L40.2773 59.9996Z" fill="#8C8C8C"/>
+<path d="M40.2776 47.6289L52.5547 40.3719L40.2776 34.7915V47.6289Z" fill="#141414"/>
+<path d="M28 40.3719L40.2771 47.6289V34.7915L28 40.3719Z" fill="#393939"/>
+ 
+<metadata><rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:schema="http://schema.org/">
+ <rdf:Description rdf:about='' xmlns:tiff="http://ns.adobe.com/tiff/1.0/">
+  <tiff:Copyright>
+   <rdf:Alt>
+    <rdf:li xml:lang="x-default">© Copyright 2022 Corefy, Inc. All rights reserved.</rdf:li>
+   </rdf:Alt>
+  </tiff:Copyright>
+ </rdf:Description>
+</rdf:RDF></metadata></svg>
