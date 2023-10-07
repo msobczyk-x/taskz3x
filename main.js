@@ -7,24 +7,22 @@ const secondaryCircleLogo = document.querySelectorAll(".secondary-circle-logo");
 const imagesCount = 8;
 const mainLineArrow = document.querySelectorAll(".main-line-arrow");
 
-
-
-
 mainLine.forEach((line, index) => {
   //translationsX
   const lineLength = 500 - (index / 1.5) * 30;
+  const rotateTranslate = index * 1.5 * (6.5 * index);
   line.style.transform = `rotate(${
-    index * 1.5 * (6.5 * index)
+    rotateTranslate
   }deg) translateX(${lineLength}px)`;
   const lineLengthTranslate = -lineLength + 30;
   line.style.setProperty("--line-length", `${lineLength}px`);
   line.style.setProperty("--line-length-translate", `${lineLengthTranslate}px`);
 
   secondaryCircleLogo[index].style.transform = `rotate(${
-    -index * 1.5 * (6.5 * index)
+    -rotateTranslate
   }deg)`;
   const randInt = Math.floor((Math.random() * imagesCount) / 4);
-  const animationDelay =   1000*index * 0.5 * randInt || index * 1000;
+  const animationDelay = 1000 * index * 0.5 * randInt || index * 1000;
 
   //animations
   const arrow = line.querySelector(".main-line-arrow");
@@ -46,8 +44,6 @@ mainLine.forEach((line, index) => {
     line.classList.add("active-dot");
   };
 });
-
-
 
 secondaryCircleWobble.forEach((circle, index) => {
   const randInt = Math.random(5, 20);
