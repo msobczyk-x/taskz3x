@@ -1,3 +1,10 @@
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
 main {
   display: flex;
   width: 100%;
@@ -5,6 +12,7 @@ main {
   align-items: center;
   justify-content: center;
   user-select: none;
+  background-color: aliceblue;
 }
 
 #main-circle {
@@ -13,6 +21,7 @@ main {
   align-items: center;
   position: relative;
   z-index: 10;
+  animation-delay: 1s;
   animation: wobble-main 15s infinite;
 }
 
@@ -23,10 +32,14 @@ main {
   }
 
   50% {
-    transform:  translate(5px, 5px);
-    scale: 1.05;
+    transform:  translate(10px, -10px);
+    scale: 1.1;
   }
 
+  75% {
+    transform: translate(-10px, 10px);
+    scale: 1.05;
+  }
   100% {
     transform:translate(0px, 0px);
     scale: 1;
@@ -192,21 +205,7 @@ main {
 }
 
 
-@keyframes slideArrow {
-  0% {
-    transform: translateX(var(--line-length-translate));
-    opacity: 0;
-  }
-  5%{
-    opacity: 1;
-    transform: translateX(var(--line-length-translate));
-  }
 
-  100% {
-    transform: translateX(0px);
-    opacity: 1;
-  }
-}
 @keyframes slideDot {
   0% {
     transform: translateX(30px);

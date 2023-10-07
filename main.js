@@ -4,7 +4,7 @@ const secondaryCircleWobble = document.querySelectorAll(
   ".secondary-circle-wobble"
 );
 const secondaryCircleLogo = document.querySelectorAll(".secondary-circle-logo");
-const imagesCount = 22;
+const imagesCount = 8;
 const mainLineArrow = document.querySelectorAll(".main-line-arrow");
 
 
@@ -23,27 +23,24 @@ mainLine.forEach((line, index) => {
   secondaryCircleLogo[index].style.transform = `rotate(${
     -index * 1.5 * (6.5 * index)
   }deg)`;
-  const randInt = Math.floor((Math.random() * imagesCount) / 2);
-  const animationDelay =   1000*index * 0.5 * randInt;
+  const randInt = Math.floor((Math.random() * imagesCount) / 4);
+  const animationDelay =   1000*index * 0.5 * randInt || index * 1000;
 
   //animations
   const arrow = line.querySelector(".main-line-arrow");
   const arrowAnimation = arrow.animate(
     [
-      { transform: `translateX(${lineLengthTranslate}px)` },
       { opacity: 1, transform: `translateX(${lineLengthTranslate}px)` },
       { transform: `translateX(20px)`, opacity: 1 },
     ],
     {
-      duration: 10000,
-      easing: "cubic-bezier(0.95, 0.05, 0.795, 0.035)",
-      delay: `${animationDelay}`,
-
+      duration: 1500,
+      easing: "cubic-bezier(0,.6,.59,1)",
+      delay: animationDelay,
       fill: "forwards",
     }
   );
   arrowAnimation.onfinish = () => {
-    console.log("finished:", index)
     line.classList.add("active");
     arrow.style.opacity = 0;
     line.classList.add("active-dot");
