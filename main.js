@@ -9,7 +9,7 @@ const mainLineArrow = document.querySelectorAll(".main-line-arrow");
 
 mainLine.forEach((line, index) => {
   //translationsX
-  const lineLength = 500 - (index / 1.5) * 30;
+  const lineLength = 350 - (index / 1.5) * 30;
   const rotateTranslate = index * 1.5 * (6.5 * index);
   line.style.transform = `rotate(${
     rotateTranslate
