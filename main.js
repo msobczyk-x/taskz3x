@@ -6,44 +6,53 @@ const secondaryCircleWobble = document.querySelectorAll(
 const secondaryCircleLogo = document.querySelectorAll(".secondary-circle-logo");
 const imagesCount = 22;
 const mainLineArrow = document.querySelectorAll(".main-line-arrow");
-mainLineDot.forEach((circle, index) => {
-  const randInt = Math.floor(Math.random() * imagesCount/2);
-  circle.style.animationDelay = `${index * randInt + 0.5}s`;
-});
+
+
 
 
 mainLine.forEach((line, index) => {
+  //translationsX
   const lineLength = 500 - (index / 1.5) * 30;
   line.style.transform = `rotate(${
-   index*1.5 *  (6.5 * index)
+    index * 1.5 * (6.5 * index)
   }deg) translateX(${lineLength}px)`;
-
+  const lineLengthTranslate = -lineLength + 30;
   line.style.setProperty("--line-length", `${lineLength}px`);
-  line.style.setProperty("--line-length-translate", `${-lineLength + 20}px`);
+  line.style.setProperty("--line-length-translate", `${lineLengthTranslate}px`);
 
   secondaryCircleLogo[index].style.transform = `rotate(${
-    -index*1.5 *  (6.5 * index)
+    -index * 1.5 * (6.5 * index)
   }deg)`;
+  const randInt = Math.floor((Math.random() * imagesCount) / 2);
+  const animationDelay =   1000*index * 0.5 * randInt;
+
+  //animations
+  const arrow = line.querySelector(".main-line-arrow");
+  const arrowAnimation = arrow.animate(
+    [
+      { transform: `translateX(${lineLengthTranslate}px)` },
+      { opacity: 1, transform: `translateX(${lineLengthTranslate}px)` },
+      { transform: `translateX(20px)`, opacity: 1 },
+    ],
+    {
+      duration: 10000,
+      easing: "cubic-bezier(0.95, 0.05, 0.795, 0.035)",
+      delay: `${animationDelay}`,
+
+      fill: "forwards",
+    }
+  );
+  arrowAnimation.onfinish = () => {
+    console.log("finished:", index)
+    line.classList.add("active");
+    arrow.style.opacity = 0;
+    line.classList.add("active-dot");
+  };
 });
+
+
 
 secondaryCircleWobble.forEach((circle, index) => {
   const randInt = Math.random(5, 20);
   circle.style.animationDelay = `${index * 0.5 * randInt}s`;
 });
-
-
-mainLineArrow.forEach((arrow, index) => {
-    const randInt = Math.random(5, 20);
-    const animationDelay = index * 2 * randInt;
-    arrow.style.animationDelay = `${animationDelay}s`;
-    arrow.classList.toggle("active")
-    setTimeout(() => {
-        console.log(arrow.parentElement)
-        arrow.parentElement.classList.toggle("active")
-        arrow.parentElement.querySelector(".main-line-dot").classList.toggle("active")
-        /* arrow.classList.toggle("active") */
-    }, animationDelay*1000*6);
-
-});
-
-
