@@ -7,24 +7,31 @@ const secondaryCircleLogo = document.querySelectorAll(".secondary-circle-logo");
 const imagesCount = 8;
 const mainLineArrow = document.querySelectorAll(".main-line-arrow");
 
+window.addEventListener("load", () => {
+  document.body.classList.remove("preload");
+}
+)
 mainLine.forEach((line, index) => {
-  //translationsX
-  const lineLength = 350 - (index / 1.5) * 30;
-  const rotateTranslate = index * 1.5 * (6.5 * index);
-  line.style.transform = `rotate(${
-    rotateTranslate
-  }deg) translateX(${lineLength}px)`;
+
+  line.classList.toggle("clickable");
+  let lineLength;
+  if (index === 2 || index === 6) {
+    lineLength = 200
+  }
+  else {
+    lineLength = 250 - (index / 1.5);
+  }
+  const rotateTranslate = 45 * index;
+  line.style.transform = `rotate(${rotateTranslate}deg) translateX(${lineLength}px)`;
   const lineLengthTranslate = -lineLength + 30;
   line.style.setProperty("--line-length", `${lineLength}px`);
   line.style.setProperty("--line-length-translate", `${lineLengthTranslate}px`);
 
-  secondaryCircleLogo[index].style.transform = `rotate(${
-    -rotateTranslate
-  }deg)`;
+  secondaryCircleLogo[index].style.transform = `rotate(${-rotateTranslate}deg)`;
   const randInt = Math.floor((Math.random() * imagesCount) / 4);
-  const animationDelay = 1000 * index * 0.5 * randInt || index * 1000;
+  const animationDelay = 2000 * index * 0.5 * randInt || index * 2000;
+  mainLineDot[index].style.setProperty("--duration-dot", `${10000}ms`);
 
-  //animations
   const arrow = line.querySelector(".main-line-arrow");
   const arrowAnimation = arrow.animate(
     [
@@ -38,11 +45,52 @@ mainLine.forEach((line, index) => {
       fill: "forwards",
     }
   );
+
+  const circleLogoImg = secondaryCircleLogo[index].querySelector(
+    ".secondary-circle-wobble"
+  );
+
+  const circleLogoImgEvent = () => {
+    if (arrowAnimation.playState === "running") {
+      if (arrowAnimation.currentTime > animationDelay) {
+        circleLogoImg.removeEventListener("click", circleLogoImgEvent);
+        line.classList.remove("clickable");
+        return;
+      }
+      circleLogoImg.animate(
+        [
+          { scale: 1 },
+          { scale: 1.2 },
+          { scale: 1 },
+        ],
+        {
+          duration: 1000,
+          easing: "cubic-bezier(0,.6,.59,1)",
+        }
+      );
+      line.classList.remove("clickable");
+      arrowAnimation.cancel();
+      arrowAnimation.effect.updateTiming({
+        duration: 1500,
+        easing: "cubic-bezier(0,.6,.59,1)",
+        delay: 200,
+        fill: "forwards",
+      });
+      arrowAnimation.play();
+      circleLogoImg.removeEventListener("click", circleLogoImgEvent);
+    }
+  };
+
+  circleLogoImg.addEventListener("click", circleLogoImgEvent);
+
   arrowAnimation.onfinish = () => {
+    line.classList.remove("clickable");
     line.classList.add("active");
     arrow.style.opacity = 0;
     line.classList.add("active-dot");
+    circleLogoImg.removeEventListener("click", circleLogoImgEvent);
   };
+
 });
 
 secondaryCircleWobble.forEach((circle, index) => {

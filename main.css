@@ -3,11 +3,14 @@ html {
   -moz-osx-font-smoothing: grayscale;
   scroll-behavior: smooth;
   overflow-x: hidden;
-
+}
+body.preload{
+  opacity: 0;
 }
 body {
-
+  opacity: 1;
   background-color: aliceblue;
+  transition: all ease-in 0.1s;
 }
 
 main {
@@ -17,7 +20,6 @@ main {
   align-items: center;
   justify-content: center;
   user-select: none;
-
 }
 
 #main-circle {
@@ -27,7 +29,7 @@ main {
   position: relative;
   z-index: 10;
   animation-delay: 1s;
-  animation: wobble-main 15s infinite;
+  animation: animation-wobble-main-circle 15s infinite;
 }
 
 #main-circle img {
@@ -38,14 +40,14 @@ main {
   object-fit: cover;
 }
 
-@keyframes wobble-main {
+@keyframes animation-wobble-main-circle {
   0% {
-    transform: translate(0px , 0px);
+    transform: translate(0px, 0px);
     scale: 1;
   }
 
   50% {
-    transform:  translate(10px, -10px);
+    transform: translate(10px, -10px);
     scale: 1.1;
   }
 
@@ -54,12 +56,10 @@ main {
     scale: 1.05;
   }
   100% {
-    transform:translate(0px, 0px);
+    transform: translate(0px, 0px);
     scale: 1;
   }
-  
 }
-
 
 .main-line {
   position: absolute;
@@ -82,18 +82,17 @@ main {
   opacity: 1;
   border: none;
   background-color: #ffd400;
-  animation: fadeIn 0.5s ease-in;
+  animation: animation-fadeIn 0.5s ease-in;
   transform: translateX(var(--line-length-translate));
 }
 
-@keyframes fadeIn {
+@keyframes animation-fadeIn {
   0% {
     opacity: 0;
   }
   100% {
     opacity: 1;
   }
-  
 }
 
 .main-line::after {
@@ -113,7 +112,10 @@ main {
 }
 
 .secondary-circle-wobble {
-  animation: wobble 5s infinite;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  animation: animation-wobble 5s infinite;
 }
 
 .secondary-circle-wobble img {
@@ -121,18 +123,43 @@ main {
   height: 100%;
   border-radius: 50%;
   object-fit: cover;
-  z-index: 50;
-  transition: ease-in-out 0.5s;
   aspect-ratio: 1/1;
   position: relative;
-
+  font-size: 0;
+  color: transparent;
 }
 
-.secondary-circle-wobble img:hover {
-  transform: scale(1.2);
+picture {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  transition: all ease-in-out 0.5s;
 }
 
-@keyframes wobble {
+.clickable picture:hover::after {
+  content: "";
+  display: block;
+  position: absolute;
+  width: calc(100% + 2px);
+  height: calc(100% + 2px);
+  top: -1px;
+  left: -1px;
+  z-index: 60;
+  opacity: 1;
+  background-color: #ffd400;
+  border-radius: 50%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTI0IDE0VjEwTDAgMTBWMTRMMjQgMTRaIiBmaWxsPSJ3aGl0ZSIvPgo8cGF0aCBkPSJNMTQgMEgxMFYyNEgxNFYwWiIgZmlsbD0id2hpdGUiLz4KPC9zdmc+Cg==);
+}
+
+.main-line:not(.clickable) .secondary-circle-wobble picture:hover {
+  transform: scale(1.1);
+}
+
+@keyframes animation-wobble {
   0% {
     transform: rotate(0deg) translate(0px);
   }
@@ -145,7 +172,7 @@ main {
   }
 }
 
-.active-dot .main-line-dot{
+.active-dot .main-line-dot {
   display: block;
   position: absolute;
   top: -3px;
@@ -154,7 +181,7 @@ main {
   border-radius: 50%;
   background-color: #ffd400;
   opacity: 0;
-  animation: slideDot 10s infinite;
+  animation: animation-slide-dot var(--duration-dot) infinite;
   animation-delay: 1.5s;
 }
 
@@ -171,9 +198,7 @@ main {
   background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iMTQiIHZpZXdCb3g9IjAgMCAxMCAxNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTAgMC45NjAzMjhMNS4yODAwNWUtMDcgMTMuMDM5N0M1LjQ1Njg3ZS0wNyAxMy40NDQyIDAuNDU1MzQ0IDEzLjY4MTMgMC43ODY3MzQgMTMuNDQ5M0w5LjQxNDgzIDcuNDA5NjJDOS42OTkxOSA3LjIxMDU3IDkuNjk5MTkgNi43ODk0MyA5LjQxNDgzIDYuNTkwMzhMMC43ODY3MzEgMC41NTA3MTJDMC40NTUzNDMgMC4zMTg3MzkgLTEuNzY4MmUtMDggMC41NTU4MTcgMCAwLjk2MDMyOFoiIGZpbGw9IiNGRkQ0MDAiLz4KPC9zdmc+Cg==);
 }
 
-
-
-@keyframes slideDot {
+@keyframes animation-slide-dot {
   0% {
     transform: translateX(30px);
     opacity: 1;
@@ -187,3 +212,4 @@ main {
     opacity: 1;
   }
 }
+
